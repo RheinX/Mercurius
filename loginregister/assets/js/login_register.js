@@ -22,18 +22,18 @@ function login() {
     else{
         $.ajax({
             method:"POST",
-            url:"http://112.74.89.4/DecisionSystem/index.php/Index_Controller/login",
+            url:"http://localhost/DecisionSystem/index.php/Index_Controller/login",
             data:"userName="+userName+"&passWord="+password,
             dataType: 'json',
             async:false,
             success:function(data){
-                var a = eval(data);
-                if(a.state==true){
+                var json = eval(data);
+                if(json.state==true){
 
-                    //turn(a);
+                    turn(json.token);
                 }
                 else{
-                    alert(a.errorMessage);
+                    alert(json.errorMessage);
 
                 }
             }
@@ -60,18 +60,18 @@ function register() {
     else{
         $.ajax({
             method:"POST",
-            url:"http://112.74.89.4/DecisionSystem/index.php/Index_Controller/register",
-            data:"phoneNum="+phoneNum+"&userName="+userName2+"&password=",
+            url:"http://localhost/DecisionSystem/index.php/Index_Controller/register",
+            data:"phoneNum="+phoneNum+"&userName="+userName2+"&passWord=" + password2,
             dataType: 'json',
             async:false,
             success:function(data){
-                var a = eval(data);
-                if(a.state==true){
+                var json = eval(data);
+                if(json.state == true){
 
-                    //turn(a);
+                    turn(json.token);
                 }
                 else{
-                    alert(a.errorMessage);
+                    alert(json.errorMessage);
                 }
             }
         });
@@ -82,7 +82,7 @@ function register() {
 
 function turn(token){   //跳转页面与存cookies
     document.cookie = "token=" + token;
-    window.href = ""
+    window.location.href = "../moban2013/user.html"
 }
 
 
