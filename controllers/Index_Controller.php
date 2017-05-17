@@ -51,16 +51,17 @@ class Index_Controller extends CI_Controller  {
     }
 
     public function setProfile(){
+        $this->load->model('Index_Model');
         $data['resName']=$this->input->post('resName');
         $data['userName']=$this->input->post('userName');
+        $data['realName']=$this->input->post('realName');
         $data['address']=$this->input->post('address');
-        $data['pic']=$this->input->post('pic');
+       // $data['pic']=$this->input->post('pic');
         $data['email']=$this->input->post('email');
         $data['city']=$this->input->post('city');
         $data['country']=$this->input->post('country');
         $data['postCode']=$this->input->post('postCode');
         $data['aboutMe']=$this->input->post('aboutMe');
-
         $data['token']=$this->input->post('token');
 
         //decrypt the token
