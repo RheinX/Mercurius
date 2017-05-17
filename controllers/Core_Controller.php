@@ -52,4 +52,21 @@ class Core_Controller extends CI_Controller {
 
         echo json_encode($data);
     }
+
+    public function predict($day,$top){
+        $data['state']=true;
+        $data['errorMessage']=null;
+        $data['dishName']="rice";
+
+        for ($i=0;$i<$day;$i++)
+            $data['volume'][$i]=2;
+
+
+        $result=array();
+        for ($i=0;$i<$top;$i++)
+            array_push($result,$data);
+
+        echo json_encode($result);
+
+    }
 }
