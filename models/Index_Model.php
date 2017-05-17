@@ -69,7 +69,7 @@ class Index_Model extends CI_Model{
         $res1 = $redis ->hSet($data['phoneNum'],'resName',$data['resName']);
         $res2 = $redis ->hSet($data['phoneNum'],'userName',$data['userName']);
         $res3 = $redis ->hSet($data['phoneNum'],'address',$data['address']);
-        $res4 = $redis ->hSet($data['phoneNum'],'pic',$data['pic']);
+        $res4 = $redis ->hSet($data['phoneNum'],'pic',$data['realName']);
         $res5 = $redis ->hSet($data['phoneNum'],'email',$data['email']);
         $res6 = $redis ->hSet($data['phoneNum'],'city',$data['city']);
         $res7 = $redis ->hSet($data['phoneNum'],'country',$data['country']);
@@ -90,7 +90,7 @@ class Index_Model extends CI_Model{
         $answer['resName'] = $redis ->hGet($data['phoneNum'],'resName');
         $answer['userName'] = $redis ->hGet($data['phoneNum'],'userName');
         $answer['address'] = $redis ->hGet($data['phoneNum'],'address');
-        $answer['pic'] = $redis ->hGet($data['phoneNum'],'pic');
+        $answer['realName'] = $redis ->hGet($data['phoneNum'],'realName');
         $answer['email'] = $redis ->hGet($data['phoneNum'],'email');
         $answer['city'] = $redis ->hGet($data['phoneNum'],'city');
         $answer['country'] = $redis ->hGet($data['phoneNum'],'country');
