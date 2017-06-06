@@ -1,5 +1,6 @@
 <?php
 include_once "self/Token.php";
+include_once "self/ExtraFunction.php";
 /**
  * Created by PhpStorm.
  * User: 徐炜杰
@@ -9,6 +10,8 @@ include_once "self/Token.php";
 class Core_Controller extends CI_Controller {
     function __construct(){
         parent::__construct();
+        header('Access-Control-Allow-Origin:*');
+        header("Access-Control-Allow-Methods:GET,POST");
         $this->output->set_header('Content-Type: application/json; charset=utf-8');
         $this->load->model('Core_Model');
         $this->load->model('Index_Model');
@@ -22,7 +25,7 @@ class Core_Controller extends CI_Controller {
 
         $userInfo=$this->Index_Model->getUserInfo($data);
 
-        if($userInfo['status']!=2){
+        if($userInfo['state']!=2){
             $result['state']=false;
             $result['errorMsg']="用户信息未通过审核!";
             echo json_encode($result);
@@ -32,20 +35,24 @@ class Core_Controller extends CI_Controller {
         $result=$this->Core_Model->getLinedata($data);
 
         if(!$result){
-            $result['status']=false;
+            $result['state']=false;
             $result['errorMsg']="发生错误!请稍候再试";
             echo json_encode($result);
             return;
         }
 
         $answer[0]['name']="好评";
-        $answer[0]['data']=$result['good'];
+
+        $other=substr($result['good'],1,strlen($result['good'])-2);
+        $answer[0]['data']=explode(',',$other);
 
         $answer[1]['name']="中评";
-        $answer[1]['data']=$result['medium'];
+        $other=substr($result['medium'],1,strlen($result['medium'])-2);
+        $answer[1]['data']=explode(',',$other);
 
         $answer[2]['name']="差评";
-        $answer[2]['data']=$result['bad'];
+        $other=substr($result['bad'],1,strlen($result['bad'])-2);
+        $answer[2]['data']=explode(',',$other);
 
         $answer['state']=true;
         echo json_encode($answer);
@@ -60,7 +67,7 @@ class Core_Controller extends CI_Controller {
 
         $userInfo=$this->Index_Model->getUserInfo($data);
 
-        if($userInfo['status']!=2){
+        if($userInfo['state']!=2){
             $result['state']=false;
             $result['errorMsg']="用户信息未通过审核!";
             echo json_encode($result);
@@ -103,7 +110,7 @@ class Core_Controller extends CI_Controller {
 
         $userInfo=$this->Index_Model->getUserInfo($data);
 
-        if($userInfo['status']!=2){
+        if($userInfo['state']!=2){
             $result['state']=false;
             $result['errorMsg']="用户信息未通过审核!";
             echo json_encode($result);
@@ -118,8 +125,13 @@ class Core_Controller extends CI_Controller {
             return;
         }
 
-        $answer['keyword']=$result['keywords'];
-        $answer['data']=$result['data'];
+        $keyOther=$result['keywords'];
+       // $keyOther=substr($keyOther,1,strlen($keyOther)-2);
+        $answer['keyword']=explode(',',$keyOther);
+
+        $keyOther=$result['data'];
+        $keyOther=substr($keyOther,1,strlen($keyOther)-2);
+        $answer['data']=explode(',',$keyOther);
         $answer['state']=true;
         $answer['errorMsg']=null;
 
@@ -143,4 +155,10 @@ class Core_Controller extends CI_Controller {
         echo json_encode($result);
 
     }
+
+
+    public function test(){
+        $this->Core_Model->writeRedis();
+    }
+
 }

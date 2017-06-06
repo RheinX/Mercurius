@@ -29,46 +29,46 @@
                     <!-- 列表打开状态的i标签添加 tpl-left-nav-more-ico-rotate 图表即90°旋转  -->
                     <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                 </a>
-                <ul class="tpl-left-nav-sub-menu" style="display:block">
+                <ul class="tpl-left-nav-sub-menu" <?php if($open=='1') echo 'style="display:block"';?>>
                     <li>
                         <!-- 打开状态 a 标签添加 active 即可   -->
-                        <a href="index.php/Admin_Controller/user" class="active">
+                        <a href="index.php/Admin_Controller/user" <?php if($label=='user') echo 'class="active"'?>>
                             <i class="am-icon-angle-right"></i>
                             <span>用户信息</span>
                             <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
                         </a>
 
-                        <a href="index.php/Admin_Controller/check_show">
+                        <a href="index.php/Admin_Controller/check_show " <?php if($label=='check') echo 'class="active"'?>>
                             <i class="am-icon-angle-right"></i>
                             <span>申请消息</span>
-                            <i class="tpl-left-nav-content tpl-badge-success">
-                                18
-                            </i>
+    <!--                            <i class="tpl-left-nav-content tpl-badge-success">-->
+    <!--                                18-->
+    <!--                            </i>-->
                     </li>
                 </ul>
             </li>
 
-<!--            <li class="tpl-left-nav-item">-->
-<!--                <a href="javascript:;" class="nav-link tpl-left-nav-link-list">-->
-<!--                    <i class="am-icon-wpforms"></i>-->
-<!--                    <span>表单</span>-->
-<!--                    <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>-->
-<!--                </a>-->
-<!--                <ul class="tpl-left-nav-sub-menu">-->
-<!--                    <li>-->
-<!--                        <a href="form-amazeui.html">-->
-<!--                            <i class="am-icon-angle-right"></i>-->
-<!--                            <span>Amaze UI 表单</span>-->
-<!--                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>-->
-<!--                        </a>-->
-<!---->
+            <li class="tpl-left-nav-item">
+                <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                    <i class="am-icon-wpforms"></i>
+                    <span>反馈</span>
+                    <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
+                </a>
+                <ul class="tpl-left-nav-sub-menu" <?php if($open=='2') echo 'style="display:block"';?>>
+                    <li>
+                        <a href="index.php/Admin_Controller/getComments"<?php if($label=='comment') echo 'class="active"'?>>
+                            <i class="am-icon-angle-right"></i>
+                            <span>用户评价</span>
+                            <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                        </a>
+
 <!--                        <a href="form-line.html">-->
 <!--                            <i class="am-icon-angle-right"></i>-->
-<!--                            <span>线条表单</span>-->
+<!--                            <span>操作日志</span>-->
 <!--                        </a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </li>-->
+                    </li>
+                </ul>
+            </li>
 
             <li class="tpl-left-nav-item">
                 <a href="index.php/Admin_Controller" class="nav-link tpl-left-nav-link-list">

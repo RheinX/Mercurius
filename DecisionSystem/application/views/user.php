@@ -78,7 +78,7 @@
                                 <?php foreach ($user as $data): ?>
                                     <tr>
                                         <td><?php echo $data['shopID']?></td>
-                                        <td><a href="#"><?php echo $data['resName']?></a></td>
+                                        <td><a href="index.php/Admin_Controller/log/<?php echo $data['shopID']?>"><?php echo $data['resName']?></a></td>
                                         <td><?php
 
                                             if($data['status']==2)

@@ -73,5 +73,95 @@ class Admin_Model extends CI_Model{
         }
     }
 
+    /*存储评论*/
+    /*return  bool false or true*/
+    public function addComment($data){
+        $redis = $this->connection();
+
+        $res1 = $redis->HSET($data['phoneNum'].'_Comment','score',$data['score']);
+        $res2 = $redis->HSET($data['phoneNum'].'_Comment','comment',$data['comment']);
+        $res3 = $redis->HSET($data['phoneNum'].'_Comment','time',$data['time']);
+        if($res1&&$res2&&$res3){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*获取评论*/
+    /*return $result array{"time"=>$result[time],"score"=>$result['scroe'],"commnet"=>$result['comment']}*/
+    public function getComment($data){
+        $redis = $this->connection();
+        $result['score'] = $redis->HGET($data['phoneNum'].'_Comment','score');
+        $result['comment'] = $redis->HGET($data['phoneNum'].'_Comment','comment');
+        $result['time'] = $redis->HGET($data['phoneNum'].'_Comment','time');
+
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    /*存储日志*/
+    public function writeLog($data){
+        $redis = $this->connection();
+        $res = $redis->HSET('Log_'.$data['phoneNum'].'_'.$data['time'],'operation',$data['operation']);
+        if($res){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /*获取所有日志*/
+    /*所有日志*/
+
+    public function getLog(){
+        $redis = $this->connection();
+        $keys = $redis->keys('Log_*');
+        $result = array();
+        for($i = 0 ;$i<count($keys);$i++){
+            $str = explode("_",$keys[$i]);
+            $time = $str[2];
+            $res = $redis->HGET($keys[$i],'operation');
+
+            $item = array();
+            $item['time'] =  $time;
+            $item['operation'] = $res;
+            $array[] = $item;
+            array_push($result,$item);
+
+        }
+        if($result){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    /*获取对应商家的日志*/
+    public function getShopLog($data){
+        $redis = $this->connection();
+        $keys = $redis->keys('Log_'.$data['phoneNum'].'*');
+        $result = array();
+        for($i = 0 ;$i<count($keys);$i++){
+            $str = explode("_",$keys[$i]);
+            $time = $str[2];
+            $res = $redis->HGET($keys[$i],'operation');
+
+            $item = array();
+            $item['time'] =  $time;
+            $item['operation'] = $res;
+            array_push($result,$item);
+        }
+//        if($result){
+//                return $str;
+//            }else{
+//                return false;
+//        }
+        return $result;
+    }
+
 
 }

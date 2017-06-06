@@ -13,6 +13,8 @@ include_once "self/info/Info.php";
 class Index_Controller extends CI_Controller  {
     function __construct(){
         parent::__construct();
+        header('Access-Control-Allow-Origin:*');
+        header("Access-Control-Allow-Methods:GET,POST");
         $this->output->set_header('Content-Type: application/json; charset=utf-8');
         //$this->load->model('Index_Model');
     }
@@ -74,8 +76,9 @@ class Index_Controller extends CI_Controller  {
             echo json_encode($result);
             return;
         }
-        $result['state']=true;
-        echo json_encode($result);
+        $data['state']=true;
+       // $data=$this->input->post();
+        echo json_encode($data);
     }
 
 

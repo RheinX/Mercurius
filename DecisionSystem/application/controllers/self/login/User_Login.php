@@ -12,6 +12,7 @@ class User_Login extends Login {
     public  function __construct($data){
         parent::__construct($data);
         $this->load->model('Index_Model');
+        $this->load->model('Admin_Model');
     }
 
     public function isLogin(){
@@ -35,6 +36,10 @@ class User_Login extends Login {
             $result['errorMessage']="帐号或密码不正确!";
             return $result;
         }
+        $log['phoneNum']=$this->data['phoneNum'];
+        $log['operation']='登录';
+        $log['time']=date("Y-m-d h:i:sa");
+        $this->Admin_Model->writeLog($log);
 
         $result['token']=Token::encrypted($this->data);
         $result['state']=true;
